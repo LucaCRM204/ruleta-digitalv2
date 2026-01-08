@@ -383,25 +383,22 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            gap: clamp(15px, 4vw, 25px);
+            gap: clamp(10px, 3vw, 20px);
             margin-bottom: clamp(15px, 3vw, 25px);
-            padding: clamp(10px, 2vw, 15px) clamp(20px, 4vw, 35px);
-            background: rgba(255,255,255,0.1);
+            padding: clamp(8px, 2vw, 12px) clamp(15px, 3vw, 25px);
+            background: rgba(255,255,255,0.95);
             border-radius: 50px;
-            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
         }
 
         .marcas-ruleta img {
             width: clamp(40px, 10vw, 60px);
             height: clamp(40px, 10vw, 60px);
             object-fit: contain;
-            filter: brightness(0) invert(1);
-            opacity: 0.9;
             transition: all 0.3s ease;
         }
 
         .marcas-ruleta img:hover {
-            opacity: 1;
             transform: scale(1.1);
         }
 
