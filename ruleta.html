@@ -374,9 +374,77 @@
         .ruleta-title {
             color: #ffffff;
             font-size: clamp(20px, 5vw, 32px);
-            margin-bottom: clamp(15px, 4vw, 25px);
+            margin-bottom: clamp(10px, 2vw, 15px);
             text-shadow: 3px 3px 6px rgba(0,0,0,0.4);
             font-weight: 700;
+        }
+
+        .marcas-ruleta {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: clamp(15px, 4vw, 30px);
+            margin-bottom: clamp(15px, 3vw, 25px);
+            padding: clamp(10px, 2vw, 15px) clamp(20px, 4vw, 40px);
+            background: rgba(255,255,255,0.1);
+            border-radius: 50px;
+            backdrop-filter: blur(10px);
+            display: inline-flex;
+        }
+
+        .marcas-ruleta img {
+            width: clamp(35px, 8vw, 55px);
+            height: clamp(35px, 8vw, 55px);
+            object-fit: contain;
+            filter: brightness(0) invert(1);
+            opacity: 0.9;
+            transition: all 0.3s ease;
+        }
+
+        .marcas-ruleta img:hover {
+            opacity: 1;
+            transform: scale(1.1);
+        }
+
+        /* Premio ganado en el formulario */
+        .premio-ganado-container {
+            text-align: center;
+            margin-bottom: clamp(15px, 3vw, 25px);
+            animation: fadeIn 0.5s ease;
+        }
+
+        .premio-ganado-label {
+            font-size: clamp(14px, 3.5vw, 18px);
+            color: #666;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .premio-ganado-box {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: clamp(12px, 3vw, 18px) clamp(20px, 5vw, 35px);
+            border-radius: clamp(10px, 2.5vw, 16px);
+            background: linear-gradient(135deg, #c9a227 0%, #a68619 100%);
+            box-shadow: 0 8px 25px rgba(201, 162, 39, 0.4);
+            animation: pulseGlow 2s infinite;
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% { box-shadow: 0 8px 25px rgba(201, 162, 39, 0.4); }
+            50% { box-shadow: 0 8px 35px rgba(201, 162, 39, 0.6); }
+        }
+
+        .premio-ganado-emoji {
+            font-size: clamp(24px, 6vw, 36px);
+        }
+
+        .premio-ganado-texto {
+            font-size: clamp(14px, 3.5vw, 20px);
+            font-weight: 800;
+            color: #1a1a1a;
+            text-shadow: 1px 1px 2px rgba(255,255,255,0.3);
         }
 
         .ruleta-wrapper {
@@ -965,10 +1033,48 @@
         </header>
 
         <main>
-            <section id="formulario-section" class="section active">
+            <section id="ruleta-section" class="section ruleta-section active">
+                <h2 class="ruleta-title">¡Girá la ruleta y ganá!</h2>
+                
+                <!-- Logos de las marcas -->
+                <div class="marcas-ruleta">
+                    <img src="logo-vw.png" alt="Volkswagen">
+                    <img src="logo-fiat.png" alt="Fiat">
+                    <img src="logo-peugeot.png" alt="Peugeot">
+                    <img src="logo-renault.png" alt="Renault">
+                </div>
+                
+                <div class="ruleta-wrapper">
+                    <div class="indicador">▼</div>
+                    <div class="ruleta-spinner" id="ruleta-spinner">
+                        <canvas id="ruleta-canvas" class="ruleta-canvas" width="500" height="500"></canvas>
+                    </div>
+                </div>
+
+                <button id="girar-btn" class="girar-btn">
+                    <span>🎯</span> ¡GIRAR RULETA!
+                </button>
+                
+                <p id="girando-text" class="girando-text" style="display: none;">¡Girando...! 🎰</p>
+                <div id="tira-nuevo-msg" class="tira-nuevo-msg" style="display: none;">
+                    <p>🔄 ¡Tenés otra oportunidad!</p>
+                    <p>Preparate para girar de nuevo...</p>
+                </div>
+            </section>
+
+            <section id="formulario-section" class="section">
                 <div class="form-card">
-                    <h2 class="form-title">🎰 ¡Girá la Ruleta!</h2>
-                    <p class="form-subtitle">Completá tus datos y participá por increíbles premios</p>
+                    <!-- Premio ganado -->
+                    <div id="premio-ganado-container" class="premio-ganado-container">
+                        <p class="premio-ganado-label">🎉 ¡Ganaste!</p>
+                        <div id="premio-ganado-box" class="premio-ganado-box">
+                            <span id="premio-ganado-emoji" class="premio-ganado-emoji"></span>
+                            <span id="premio-ganado-texto" class="premio-ganado-texto"></span>
+                        </div>
+                    </div>
+                    
+                    <h2 class="form-title">Completá tus datos para reclamarlo</h2>
+                    <p class="form-subtitle">Ingresá tu información y te contactaremos</p>
 
                     <form id="participar-form">
                         <p class="section-title">📋 Tus datos</p>
@@ -1100,30 +1206,9 @@
                         </p>
 
                         <button type="submit" class="submit-btn" id="submit-btn">
-                            <span>🎰</span> ¡QUIERO PARTICIPAR!
+                            <span>🎁</span> ¡RECLAMAR MI PREMIO!
                         </button>
                     </form>
-                </div>
-            </section>
-
-            <section id="ruleta-section" class="section ruleta-section">
-                <h2 class="ruleta-title">¡Hola <span id="nombre-display"></span>! Girá la ruleta</h2>
-                
-                <div class="ruleta-wrapper">
-                    <div class="indicador">▼</div>
-                    <div class="ruleta-spinner" id="ruleta-spinner">
-                        <canvas id="ruleta-canvas" class="ruleta-canvas" width="500" height="500"></canvas>
-                    </div>
-                </div>
-
-                <button id="girar-btn" class="girar-btn">
-                    <span>🎯</span> ¡GIRAR RULETA!
-                </button>
-                
-                <p id="girando-text" class="girando-text" style="display: none;">¡Girando...! 🎰</p>
-                <div id="tira-nuevo-msg" class="tira-nuevo-msg" style="display: none;">
-                    <p>🔄 ¡Tenés otra oportunidad!</p>
-                    <p>Preparate para girar de nuevo...</p>
                 </div>
             </section>
 
@@ -1221,22 +1306,18 @@
         };
 
         const PREMIOS = [
-            // PROBABILIDADES CONFIGURADAS:
-            // - Estadía Bariloche: 1 en 100,000 (0.001%)
-            // - Seguí participando: 1 en 5 (20% total = ~6.67% cada uno)
-            // - Resto: parejo (~10% cada uno)
+            // PROBABILIDADES CONFIGURADAS (9 premios):
+            // - Estadía Bariloche: muy baja probabilidad
+            // - Resto: distribuidos equitativamente (~11% cada uno)
             { id: 1, nombre: "ESTADÍA EN BARILOCHE", color: "#1a1a2e", probabilidad: 1, emoji: "🏔️", destacado: true },
-            { id: 2, nombre: "SUSCRIPCIÓN SIN CARGO", color: "#c23a3a", probabilidad: 10000, emoji: "📋", destacado: false },
-            { id: 3, nombre: "LLAVERO", color: "#d4a14a", probabilidad: 10000, emoji: "🔑", destacado: false },
-            { id: 4, nombre: "LAPICERA", color: "#3d8b6e", probabilidad: 10000, emoji: "✏️", destacado: false },
-            { id: 5, nombre: "SEGUÍ PARTICIPANDO", color: "#1a1a2e", probabilidad: 6666, emoji: "🎯", destacado: false },
-            { id: 6, nombre: "12 CUOTAS ¡BONIFICADAS!", color: "#3a7bc2", probabilidad: 10000, emoji: "💰", destacado: true },
-            { id: 7, nombre: "¡TIRA DE NUEVO!", color: "#8b5cf6", probabilidad: 10000, emoji: "🔄", destacado: false },
-            { id: 8, nombre: "SEGUÍ PARTICIPANDO", color: "#1a1a2e", probabilidad: 6667, emoji: "🎯", destacado: false },
-            { id: 9, nombre: "$1.000.000 DE DESCUENTO", color: "#2d2d2d", probabilidad: 10000, emoji: "🎉", destacado: true },
-            { id: 10, nombre: "GASTOS DE RETIRO ¡BONIFICADO!", color: "#e07b39", probabilidad: 10000, emoji: "🚗", destacado: true },
-            { id: 11, nombre: "SEGUÍ PARTICIPANDO", color: "#c23a3a", probabilidad: 6666, emoji: "🎯", destacado: false },
-            { id: 12, nombre: "LLAVERO", color: "#d4a14a", probabilidad: 10000, emoji: "🔑", destacado: false },
+            { id: 2, nombre: "SUSCRIPCIÓN SIN CARGO", color: "#c23a3a", probabilidad: 11111, emoji: "📋", destacado: false },
+            { id: 3, nombre: "LLAVERO", color: "#d4a14a", probabilidad: 11111, emoji: "🔑", destacado: false },
+            { id: 4, nombre: "LAPICERA", color: "#3d8b6e", probabilidad: 11111, emoji: "✏️", destacado: false },
+            { id: 5, nombre: "12 CUOTAS ¡BONIFICADAS!", color: "#3a7bc2", probabilidad: 11111, emoji: "💰", destacado: true },
+            { id: 6, nombre: "¡TIRA DE NUEVO!", color: "#8b5cf6", probabilidad: 11111, emoji: "🔄", destacado: false },
+            { id: 7, nombre: "$1.000.000 DE DESCUENTO", color: "#2d2d2d", probabilidad: 11111, emoji: "🎉", destacado: true },
+            { id: 8, nombre: "GASTOS DE RETIRO ¡BONIFICADO!", color: "#e07b39", probabilidad: 11111, emoji: "🚗", destacado: true },
+            { id: 9, nombre: "LLAVERO", color: "#d4a14a", probabilidad: 11111, emoji: "🔑", destacado: false },
         ];
 
         let formData = {};
@@ -1512,7 +1593,6 @@
         const ruletaSection = document.getElementById('ruleta-section');
         const resultadoSection = document.getElementById('resultado-section');
         const form = document.getElementById('participar-form');
-        const nombreDisplay = document.getElementById('nombre-display');
         const ruletaSpinner = document.getElementById('ruleta-spinner');
         const canvas = document.getElementById('ruleta-canvas');
         const ctx = canvas.getContext('2d');
@@ -1611,6 +1691,7 @@
             
             // Calcular tamaño de fuente basado en el tamaño del canvas
             const fontSize = Math.max(8, Math.floor(size / 50));
+            const emojiSize = Math.max(14, Math.floor(size / 25));
             
             PREMIOS.forEach((premio, i) => {
                 const anguloInicio = i * anguloPorPremio - Math.PI / 2;
@@ -1635,6 +1716,13 @@
                 ctx.font = `bold ${fontSize}px Montserrat, sans-serif`;
                 ctx.shadowColor = 'rgba(0,0,0,0.5)';
                 ctx.shadowBlur = 3;
+                
+                // Dibujar emoji primero (más cerca del borde)
+                ctx.font = `${emojiSize}px sans-serif`;
+                ctx.fillText(premio.emoji, radius - 12, 5);
+                
+                // Luego el texto del premio
+                ctx.font = `bold ${fontSize}px Montserrat, sans-serif`;
                 const palabras = premio.nombre.split(' ');
                 const lineas = [];
                 let lineaActual = '';
@@ -1649,8 +1737,9 @@
                 lineas.push(lineaActual.trim());
                 const alturaLinea = fontSize + 3;
                 const offsetY = -((lineas.length - 1) * alturaLinea) / 2;
+                const textoOffset = radius - 40; // Mover texto más hacia el centro para dar espacio al emoji
                 lineas.forEach((linea, idx) => {
-                    ctx.fillText(linea, radius - 20, offsetY + idx * alturaLinea + 4);
+                    ctx.fillText(linea, textoOffset, offsetY + idx * alturaLinea + 4);
                 });
                 ctx.restore();
             });
@@ -1792,42 +1881,30 @@
             document.getElementById('crm-success').style.display = 'none';
             resultadoInfo.style.display = 'none';
             
-            if (premio.nombre === "SEGUÍ PARTICIPANDO") {
-                card.className = 'resultado-card normal';
-                emoji.textContent = '😊';
-                titulo.textContent = '¡Gracias por participar!';
-                subtitulo.textContent = 'Esta vez no tuviste suerte, pero ya quedaste registrado.';
-                premioContainer.style.display = 'none';
-                confettiEmoji.style.display = 'none';
-                resultadoInfo.textContent = '¡Te esperamos en nuestros locales!';
-                resultadoInfo.style.display = 'block';
-                enviarAlCRM(premio);
-            } else {
-                card.className = premio.destacado ? 'resultado-card destacado' : 'resultado-card normal';
-                confettiEmoji.style.display = 'block';
-                emoji.textContent = premio.emoji;
-                titulo.textContent = `¡FELICITACIONES ${formData.nombre.toUpperCase()}!`;
-                subtitulo.textContent = 'Ganaste:';
-                premioContainer.style.display = 'block';
-                premioBox.style.backgroundColor = premio.color;
-                premioTexto.textContent = premio.nombre;
-                
-                document.getElementById('telefono-link').href = `tel:${TELEFONO_RECLAMO.replace(/\s/g, '')}`;
-                document.getElementById('telefono-link').textContent = `📞 ${TELEFONO_RECLAMO}`;
-                document.getElementById('codigo-reclamo').innerHTML = `Mencioná el código: <strong>GOLD-${formData.dni.slice(-4)}</strong>`;
-                document.getElementById('whatsapp-btn').href = `https://wa.me/${WHATSAPP_NUMBER}?text=Hola! Gané en la ruleta: ${premio.nombre}. Código: GOLD-${formData.dni.slice(-4)}. Me interesa ${formData.marca} ${formData.modeloNombre}`;
-                
-                setTimeout(() => {
-                    lanzarConfetti(premio.destacado);
-                    if (premio.destacado) {
-                        playBigWinSound();
-                    } else {
-                        playWinSound();
-                    }
-                }, 100);
-                
-                enviarAlCRM(premio);
-            }
+            card.className = premio.destacado ? 'resultado-card destacado' : 'resultado-card normal';
+            confettiEmoji.style.display = 'block';
+            emoji.textContent = premio.emoji;
+            titulo.textContent = `¡FELICITACIONES ${formData.nombre.toUpperCase()}!`;
+            subtitulo.textContent = 'Ganaste:';
+            premioContainer.style.display = 'block';
+            premioBox.style.backgroundColor = premio.color;
+            premioTexto.textContent = premio.nombre;
+            
+            document.getElementById('telefono-link').href = `tel:${TELEFONO_RECLAMO.replace(/\s/g, '')}`;
+            document.getElementById('telefono-link').textContent = `📞 ${TELEFONO_RECLAMO}`;
+            document.getElementById('codigo-reclamo').innerHTML = `Mencioná el código: <strong>GOLD-${formData.dni.slice(-4)}</strong>`;
+            document.getElementById('whatsapp-btn').href = `https://wa.me/${WHATSAPP_NUMBER}?text=Hola! Gané en la ruleta: ${premio.nombre}. Código: GOLD-${formData.dni.slice(-4)}. Me interesa ${formData.marca} ${formData.modeloNombre}`;
+            
+            setTimeout(() => {
+                lanzarConfetti(premio.destacado);
+                if (premio.destacado) {
+                    playBigWinSound();
+                } else {
+                    playWinSound();
+                }
+            }, 100);
+            
+            enviarAlCRM(premio);
             
             guardarParticipacion(formData.dni, {
                 premio: premio.nombre,
@@ -1873,7 +1950,21 @@
                         girarBtn.style.display = 'inline-flex';
                     }, 2500);
                 } else {
-                    setTimeout(() => mostrarResultado(premio), 1000);
+                    // Mostrar confetti y sonido de victoria
+                    if (typeof confetti !== 'undefined') {
+                        confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
+                    }
+                    if (premio.destacado) {
+                        playBigWinSound();
+                    } else {
+                        playWinSound();
+                    }
+                    // Actualizar el premio en el formulario
+                    document.getElementById('premio-ganado-emoji').textContent = premio.emoji;
+                    document.getElementById('premio-ganado-texto').textContent = premio.nombre;
+                    document.getElementById('premio-ganado-box').style.backgroundColor = premio.color;
+                    // Ir al formulario para completar datos
+                    setTimeout(() => mostrarSeccion(formularioSection), 1500);
                 }
             }, 5000);
         }
@@ -1901,7 +1992,7 @@
             girarBtn.style.display = 'inline-flex';
             girandoText.style.display = 'none';
             tiraNuevoMsg.style.display = 'none';
-            mostrarSeccion(formularioSection);
+            mostrarSeccion(ruletaSection);
         }
 
         // ============================================
@@ -1927,9 +2018,8 @@
                 return;
             }
             
-            nombreDisplay.textContent = formData.nombre;
-            mostrarSeccion(ruletaSection);
-            dibujarRuleta();
+            // Mostrar el resultado con el premio que ya ganó en la ruleta
+            mostrarResultado(premioGanado);
         });
 
         girarBtn.addEventListener('click', girarRuleta);
