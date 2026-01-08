@@ -1,0 +1,1945 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Ruleta GoldPlan - ¡Participá y Ganá!</title>
+    
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-11397261248"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'AW-11397261248');
+    </script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html {
+            font-size: 16px;
+        }
+
+        body {
+            font-family: 'Montserrat', 'Segoe UI', sans-serif;
+            min-height: 100vh;
+            min-height: -webkit-fill-available;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 50%, #1a1a1a 100%);
+            overflow-x: hidden;
+        }
+
+        .background-pattern {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                radial-gradient(circle at 20% 30%, rgba(255,215,0,0.15) 0%, transparent 40%),
+                radial-gradient(circle at 80% 70%, rgba(255,215,0,0.15) 0%, transparent 40%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* ============================================
+           HEADER - RESPONSIVE
+           ============================================ */
+        header {
+            text-align: center;
+            padding: 20px 20px 15px;
+        }
+
+        .logo-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-text {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-grupo {
+            font-size: clamp(16px, 4vw, 24px);
+            font-weight: 600;
+            color: #c9a227;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        .logo-alra {
+            font-size: clamp(36px, 10vw, 56px);
+            font-weight: 800;
+            color: #ffffff;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.3);
+            letter-spacing: -1px;
+        }
+
+        .marcas-logos {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 10px 20px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50px;
+            backdrop-filter: blur(10px);
+            flex-wrap: wrap;
+        }
+
+        .marcas-logos span:first-child {
+            font-size: clamp(20px, 5vw, 28px);
+        }
+
+        .marca-divider {
+            width: 1px;
+            height: 20px;
+            background: rgba(255,255,255,0.3);
+        }
+
+        .marcas-text {
+            color: white;
+            font-weight: 600;
+            font-size: clamp(10px, 2.5vw, 14px);
+            letter-spacing: 1px;
+        }
+
+        .slogan {
+            color: #c9a227;
+            font-size: clamp(18px, 5vw, 26px);
+            margin-top: 10px;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        /* ============================================
+           MAIN CONTENT
+           ============================================ */
+        main {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+        }
+
+        .section {
+            display: none;
+            width: 100%;
+            max-width: 900px;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ============================================
+           FORM CARD - RESPONSIVE
+           ============================================ */
+        .form-card {
+            background: rgba(255,255,255,0.98);
+            border-radius: clamp(16px, 4vw, 28px);
+            padding: clamp(20px, 5vw, 40px);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.35);
+            margin: 0 auto;
+        }
+
+        .form-title {
+            font-size: clamp(20px, 5vw, 30px);
+            color: #1a1a1a;
+            margin-bottom: 5px;
+            text-align: center;
+            font-weight: 800;
+        }
+
+        .form-subtitle {
+            font-size: clamp(13px, 3vw, 16px);
+            color: #666;
+            margin-bottom: clamp(15px, 4vw, 30px);
+            text-align: center;
+        }
+
+        .section-title {
+            font-size: clamp(12px, 3vw, 15px);
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 12px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: clamp(10px, 3vw, 20px);
+            margin-bottom: clamp(10px, 3vw, 18px);
+        }
+
+        .form-row.cuatro {
+            grid-template-columns: repeat(4, 1fr);
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .input-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .input-group label {
+            font-size: clamp(10px, 2.5vw, 12px);
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .input-group input,
+        .input-group select {
+            padding: clamp(10px, 2.5vw, 14px);
+            font-size: clamp(14px, 3.5vw, 16px);
+            font-family: inherit;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            outline: none;
+            transition: all 0.3s ease;
+            background: #fafafa;
+            width: 100%;
+            -webkit-appearance: none;
+            appearance: none;
+        }
+
+        .input-group select {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23333' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+            padding-right: 35px;
+        }
+
+        .input-group input:focus,
+        .input-group select:focus {
+            border-color: #1a1a1a;
+            box-shadow: 0 0 0 3px rgba(0,30,80,0.1);
+            background: #ffffff;
+        }
+
+        .input-group input.error,
+        .input-group select.error {
+            border-color: #e53935;
+            background: #fff5f5;
+        }
+
+        .error-text {
+            color: #e53935;
+            font-size: clamp(9px, 2vw, 11px);
+            margin-top: 3px;
+            font-weight: 600;
+        }
+
+        /* ============================================
+           MARCA SELECTOR - RESPONSIVE
+           ============================================ */
+        .marca-selector {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: clamp(8px, 2vw, 15px);
+        }
+
+        .marca-option {
+            padding: clamp(12px, 3vw, 18px) clamp(8px, 2vw, 12px);
+            border: 3px solid #e0e0e0;
+            border-radius: clamp(10px, 2.5vw, 16px);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            background: #fafafa;
+        }
+
+        .marca-option:hover {
+            border-color: #1a1a1a;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+        }
+
+        .marca-option.selected {
+            border-color: #1a1a1a;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+        }
+
+        .marca-option.selected .marca-option-name {
+            color: #ffffff;
+        }
+
+        .marca-emoji {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 5px;
+        }
+
+        .marca-emoji img {
+            width: clamp(32px, 8vw, 45px);
+            height: clamp(32px, 8vw, 45px);
+            object-fit: contain;
+        }
+
+        .marca-option-name {
+            font-size: clamp(10px, 2.5vw, 14px);
+            font-weight: 700;
+            color: #333;
+        }
+
+        /* ============================================
+           BUTTONS - RESPONSIVE
+           ============================================ */
+        .terms {
+            font-size: clamp(10px, 2.5vw, 12px);
+            color: #888;
+            text-align: center;
+            margin: clamp(12px, 3vw, 20px) 0;
+            line-height: 1.5;
+        }
+
+        .terms strong {
+            color: #e53935;
+        }
+
+        .submit-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #c9a227 0%, #a68619 100%);
+            color: #1a1a1a;
+            border: none;
+            padding: clamp(14px, 3.5vw, 20px) clamp(20px, 5vw, 40px);
+            font-size: clamp(14px, 3.5vw, 20px);
+            font-weight: 800;
+            font-family: inherit;
+            border-radius: clamp(10px, 2.5vw, 16px);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            box-shadow: 0 8px 25px rgba(255,179,0,0.5);
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 35px rgba(255,179,0,0.6);
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* ============================================
+           RULETA SECTION - RESPONSIVE
+           ============================================ */
+        .ruleta-section {
+            text-align: center;
+            padding: 10px;
+        }
+
+        .ruleta-title {
+            color: #ffffff;
+            font-size: clamp(20px, 5vw, 32px);
+            margin-bottom: clamp(15px, 4vw, 25px);
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.4);
+            font-weight: 700;
+        }
+
+        .ruleta-wrapper {
+            position: relative;
+            width: min(90vw, 450px);
+            height: min(90vw, 450px);
+            margin: 0 auto;
+        }
+
+        .indicador {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: clamp(35px, 10vw, 50px);
+            color: #c9a227;
+            z-index: 20;
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.4));
+        }
+
+        .ruleta-spinner {
+            width: 100%;
+            height: 100%;
+            transition: transform 5s cubic-bezier(0.17, 0.67, 0.12, 0.99);
+        }
+
+        .ruleta-canvas {
+            width: 100%;
+            height: 100%;
+        }
+
+        .girar-btn {
+            margin-top: clamp(20px, 5vw, 30px);
+            background: linear-gradient(135deg, #c9a227 0%, #a68619 100%);
+            color: #1a1a1a;
+            border: none;
+            padding: clamp(14px, 3.5vw, 22px) clamp(30px, 8vw, 50px);
+            font-size: clamp(18px, 4.5vw, 26px);
+            font-weight: 800;
+            font-family: inherit;
+            border-radius: clamp(14px, 3.5vw, 22px);
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 10px 30px rgba(255,179,0,0.6);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.03); }
+        }
+
+        .girando-text {
+            margin-top: clamp(20px, 5vw, 30px);
+            color: #c9a227;
+            font-size: clamp(22px, 5.5vw, 32px);
+            font-weight: 800;
+            animation: blink 0.5s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        .tira-nuevo-msg {
+            margin-top: clamp(15px, 4vw, 25px);
+            color: #c9a227;
+            font-size: clamp(18px, 4.5vw, 26px);
+            font-weight: 700;
+        }
+
+        .tira-nuevo-msg p {
+            margin: 5px 0;
+        }
+
+        /* ============================================
+           RESULTADO SECTION - RESPONSIVE
+           ============================================ */
+        .resultado-card {
+            border-radius: clamp(16px, 4vw, 28px);
+            padding: clamp(30px, 6vw, 50px) clamp(20px, 5vw, 40px);
+            text-align: center;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.35);
+            position: relative;
+            overflow: hidden;
+            margin: 0 auto;
+            max-width: 550px;
+        }
+
+        .resultado-card.destacado {
+            background: linear-gradient(135deg, #c9a227 0%, #d4b445 50%, #c9a227 100%);
+        }
+
+        .resultado-card.normal {
+            background: linear-gradient(135deg, #ffffff 0%, #f5f5f5 100%);
+        }
+
+        .confetti-emoji {
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: clamp(28px, 7vw, 42px);
+            animation: bounce 1s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(-12px); }
+        }
+
+        .resultado-emoji {
+            font-size: clamp(50px, 15vw, 80px);
+            margin-bottom: 10px;
+            animation: popIn 0.5s ease;
+        }
+
+        @keyframes popIn {
+            0% { transform: scale(0); }
+            50% { transform: scale(1.3); }
+            100% { transform: scale(1); }
+        }
+
+        .resultado-titulo {
+            font-size: clamp(20px, 5vw, 32px);
+            font-weight: 800;
+            color: #1a1a1a;
+            margin-bottom: 8px;
+            animation: slideUp 0.5s ease 0.2s both;
+        }
+
+        .resultado-subtitulo {
+            font-size: clamp(14px, 3.5vw, 20px);
+            color: #333;
+            margin-bottom: clamp(12px, 3vw, 20px);
+            animation: slideUp 0.5s ease 0.3s both;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .premio-box {
+            padding: clamp(14px, 3.5vw, 22px) clamp(20px, 5vw, 35px);
+            border-radius: clamp(10px, 2.5vw, 16px);
+            margin-bottom: clamp(18px, 4vw, 30px);
+            display: inline-block;
+            animation: scaleIn 0.5s ease 0.4s both;
+        }
+
+        @keyframes scaleIn {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .premio-texto {
+            color: #ffffff;
+            font-size: clamp(18px, 4.5vw, 28px);
+            font-weight: 800;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .reclamo-section {
+            background: rgba(0,30,80,0.06);
+            padding: clamp(15px, 4vw, 25px);
+            border-radius: clamp(10px, 2.5vw, 16px);
+            margin-bottom: clamp(12px, 3vw, 20px);
+            animation: slideUp 0.5s ease 0.5s both;
+        }
+
+        .reclamo-titulo {
+            font-size: clamp(13px, 3vw, 17px);
+            color: #333;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .telefono-link {
+            display: block;
+            color: #1a1a1a;
+            font-size: clamp(16px, 4vw, 22px);
+            font-weight: 800;
+            text-decoration: none;
+            margin-bottom: 8px;
+        }
+
+        .reclamo-info {
+            font-size: clamp(11px, 2.8vw, 14px);
+            color: #666;
+            margin-bottom: 12px;
+        }
+
+        .whatsapp-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #25d366;
+            color: white;
+            padding: clamp(10px, 2.5vw, 14px) clamp(18px, 4vw, 28px);
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: clamp(12px, 3vw, 15px);
+            transition: all 0.3s ease;
+        }
+
+        .whatsapp-btn:hover {
+            background: #1fb855;
+            transform: scale(1.05);
+        }
+
+        .crm-status {
+            color: #666;
+            font-size: clamp(12px, 3vw, 15px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .spinner {
+            width: 18px;
+            height: 18px;
+            border: 2px solid #e0e0e0;
+            border-top: 2px solid #1a1a1a;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .crm-success {
+            color: #2e7d32;
+            font-size: clamp(12px, 3vw, 15px);
+            font-weight: 600;
+        }
+
+        .resultado-info {
+            font-size: clamp(13px, 3vw, 17px);
+            color: #666;
+            margin-top: 15px;
+        }
+
+        .nuevo-btn {
+            margin-top: clamp(15px, 4vw, 25px);
+            background: #1a1a1a;
+            color: white;
+            border: none;
+            padding: clamp(12px, 3vw, 16px) clamp(25px, 6vw, 40px);
+            font-size: clamp(13px, 3vw, 17px);
+            font-weight: 700;
+            font-family: inherit;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .nuevo-btn:hover {
+            background: #2d2d2d;
+            transform: translateY(-2px);
+        }
+
+        /* ============================================
+           FOOTER - RESPONSIVE
+           ============================================ */
+        footer {
+            text-align: center;
+            padding: clamp(12px, 3vw, 20px);
+            color: rgba(255,255,255,0.6);
+            font-size: clamp(10px, 2.5vw, 13px);
+        }
+
+        /* ============================================
+           MODAL - RESPONSIVE
+           ============================================ */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.7);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: clamp(16px, 4vw, 28px);
+            padding: clamp(25px, 6vw, 45px);
+            max-width: 450px;
+            width: 100%;
+            text-align: center;
+            animation: modalIn 0.3s ease;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        @keyframes modalIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .modal-emoji {
+            font-size: clamp(45px, 12vw, 70px);
+            margin-bottom: 15px;
+        }
+
+        .modal-title {
+            font-size: clamp(20px, 5vw, 28px);
+            font-weight: 800;
+            color: #1a1a1a;
+            margin-bottom: 10px;
+        }
+
+        .modal-text {
+            font-size: clamp(13px, 3.5vw, 17px);
+            color: #666;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        .modal-premio {
+            background: linear-gradient(135deg, #c9a227 0%, #a68619 100%);
+            padding: clamp(12px, 3vw, 18px) clamp(18px, 4vw, 28px);
+            border-radius: 12px;
+            margin-bottom: 20px;
+        }
+
+        .modal-premio-label {
+            font-size: clamp(10px, 2.5vw, 13px);
+            color: #1a1a1a;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+        }
+
+        .modal-premio-nombre {
+            font-size: clamp(15px, 4vw, 20px);
+            font-weight: 800;
+            color: #1a1a1a;
+        }
+
+        .modal-close-btn {
+            background: #1a1a1a;
+            color: white;
+            border: none;
+            padding: clamp(12px, 3vw, 16px) clamp(25px, 6vw, 40px);
+            font-size: clamp(13px, 3.5vw, 17px);
+            font-weight: 700;
+            font-family: inherit;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .modal-close-btn:hover {
+            background: #2d2d2d;
+        }
+
+        /* ============================================
+           LOADING OVERLAY - RESPONSIVE
+           ============================================ */
+        .loading-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,30,80,0.9);
+            z-index: 999;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .loading-overlay.active {
+            display: flex;
+        }
+
+        .loading-spinner {
+            width: clamp(45px, 12vw, 70px);
+            height: clamp(45px, 12vw, 70px);
+            border: 4px solid rgba(255,255,255,0.3);
+            border-top: 4px solid #c9a227;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        .loading-text {
+            color: white;
+            font-size: clamp(14px, 4vw, 20px);
+            font-weight: 600;
+        }
+
+        /* Efectos de luz para premio destacado */
+        .resultado-card.destacado::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                45deg,
+                transparent 30%,
+                rgba(255,255,255,0.3) 50%,
+                transparent 70%
+            );
+            animation: shine 2s infinite;
+        }
+
+        @keyframes shine {
+            0% { transform: translateX(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) rotate(45deg); }
+        }
+
+        /* ============================================
+           MEDIA QUERIES - BREAKPOINTS
+           ============================================ */
+        
+        /* Móviles pequeños (hasta 360px) */
+        @media (max-width: 360px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .form-row.cuatro {
+                grid-template-columns: 1fr;
+            }
+            
+            .marca-selector {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .form-card {
+                padding: 18px;
+            }
+        }
+
+        /* Móviles (361px - 480px) */
+        @media (min-width: 361px) and (max-width: 480px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .form-row.cuatro {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .marca-selector {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        /* Móviles grandes / Phablets (481px - 600px) */
+        @media (min-width: 481px) and (max-width: 600px) {
+            .form-row {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .form-row.cuatro {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .marca-selector {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        /* Tablets (601px - 900px) */
+        @media (min-width: 601px) and (max-width: 900px) {
+            .form-row {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .form-row.cuatro {
+                grid-template-columns: repeat(4, 1fr);
+            }
+            
+            .marca-selector {
+                grid-template-columns: repeat(4, 1fr);
+            }
+            
+            main {
+                padding: 20px;
+            }
+        }
+
+        /* Tablets grandes / Laptops pequeños (901px - 1200px) */
+        @media (min-width: 901px) and (max-width: 1200px) {
+            .form-card {
+                max-width: 800px;
+            }
+            
+            main {
+                padding: 30px;
+            }
+        }
+
+        /* Desktop (1201px+) */
+        @media (min-width: 1201px) {
+            .form-card {
+                max-width: 900px;
+            }
+            
+            main {
+                padding: 40px;
+            }
+            
+            .ruleta-wrapper {
+                width: 480px;
+                height: 480px;
+            }
+        }
+
+        /* Landscape móvil */
+        @media (max-height: 500px) and (orientation: landscape) {
+            header {
+                padding: 10px;
+            }
+            
+            .slogan {
+                display: none;
+            }
+            
+            .ruleta-wrapper {
+                width: min(50vh, 300px);
+                height: min(50vh, 300px);
+            }
+            
+            .girar-btn {
+                margin-top: 15px;
+                padding: 12px 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="background-pattern"></div>
+    
+    <!-- Loading Overlay -->
+    <div id="loading-overlay" class="loading-overlay">
+        <div class="loading-spinner"></div>
+        <p class="loading-text">Verificando participación...</p>
+    </div>
+
+    <!-- Modal Ya Jugaste -->
+    <div id="ya-jugaste-modal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-emoji">🎰</div>
+            <h2 class="modal-title">¡Ya participaste!</h2>
+            <p class="modal-text">Este DNI ya fue registrado en nuestra ruleta. Solo podés participar una vez.</p>
+            <div id="modal-premio-container" class="modal-premio" style="display: none;">
+                <p class="modal-premio-label">Tu premio fue:</p>
+                <p id="modal-premio-nombre" class="modal-premio-nombre"></p>
+            </div>
+            <p class="modal-text">¡Gracias por participar y mucha suerte con tu premio!</p>
+            <button class="modal-close-btn" onclick="cerrarModal()">Entendido</button>
+        </div>
+    </div>
+    
+    <div class="container">
+        <header>
+            <div class="logo-container">
+                <a href="index.html" style="text-decoration: none;">
+                    <img src="logo-goldplan.png" alt="GoldPlan" style="height: 60px; width: auto;">
+                </a>
+                <p class="slogan">¡Participá y Ganá!</p>
+            </div>
+        </header>
+
+        <main>
+            <section id="formulario-section" class="section active">
+                <div class="form-card">
+                    <h2 class="form-title">🎰 ¡Girá la Ruleta!</h2>
+                    <p class="form-subtitle">Completá tus datos y participá por increíbles premios</p>
+
+                    <form id="participar-form">
+                        <p class="section-title">📋 Tus datos</p>
+                        <div class="form-row">
+                            <div class="input-group">
+                                <label for="nombre">Nombre *</label>
+                                <input type="text" id="nombre" placeholder="Tu nombre" required autocomplete="given-name">
+                                <span class="error-text" id="nombre-error"></span>
+                            </div>
+                            <div class="input-group">
+                                <label for="apellido">Apellido *</label>
+                                <input type="text" id="apellido" placeholder="Tu apellido" required autocomplete="family-name">
+                                <span class="error-text" id="apellido-error"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="input-group">
+                                <label for="email">Email *</label>
+                                <input type="email" id="email" placeholder="tu@email.com" required autocomplete="email">
+                                <span class="error-text" id="email-error"></span>
+                            </div>
+                            <div class="input-group">
+                                <label for="telefono">Teléfono *</label>
+                                <input type="tel" id="telefono" placeholder="11 1234-5678" required autocomplete="tel">
+                                <span class="error-text" id="telefono-error"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="input-group">
+                                <label for="dni">DNI *</label>
+                                <input type="text" id="dni" placeholder="12345678" required inputmode="numeric" pattern="[0-9]*">
+                                <span class="error-text" id="dni-error"></span>
+                            </div>
+                        </div>
+
+                        <p class="section-title" style="margin-top: 20px;">🚗 ¿Qué auto te interesa?</p>
+                        
+                        <div class="input-group full-width" style="margin-bottom: 15px;">
+                            <label>Elegí una marca *</label>
+                            <div class="marca-selector">
+                                <div class="marca-option" data-marca="volkswagen">
+                                    <div class="marca-emoji">
+                                        <img src="logo-vw.png" alt="Volkswagen">
+                                    </div>
+                                    <span class="marca-option-name">Volkswagen</span>
+                                </div>
+                                <div class="marca-option" data-marca="fiat">
+                                    <div class="marca-emoji">
+                                        <img src="logo-fiat.png" alt="Fiat">
+                                    </div>
+                                    <span class="marca-option-name">Fiat</span>
+                                </div>
+                                <div class="marca-option" data-marca="peugeot">
+                                    <div class="marca-emoji">
+                                        <img src="logo-peugeot.png" alt="Peugeot">
+                                    </div>
+                                    <span class="marca-option-name">Peugeot</span>
+                                </div>
+                                <div class="marca-option" data-marca="renault">
+                                    <div class="marca-emoji">
+                                        <img src="logo-renault.png" alt="Renault">
+                                    </div>
+                                    <span class="marca-option-name">Renault</span>
+                                </div>
+                            </div>
+                            <input type="hidden" id="marca" name="marca">
+                            <span class="error-text" id="marca-error"></span>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="input-group full-width">
+                                <label for="modelo">Modelo de interés *</label>
+                                <select id="modelo" disabled>
+                                    <option value="">Primero elegí una marca</option>
+                                </select>
+                                <span class="error-text" id="modelo-error"></span>
+                            </div>
+                        </div>
+
+                        <p class="section-title" style="margin-top: 20px;">💬 Contanos un poco más</p>
+                        
+                        <div class="form-row cuatro">
+                            <div class="input-group">
+                                <label for="tiene-auto">¿Tenés auto?</label>
+                                <select id="tiene-auto">
+                                    <option value="">Seleccioná</option>
+                                    <option value="si">Sí</option>
+                                    <option value="no">No</option>
+                                    <option value="vendiendo">Estoy por vender</option>
+                                </select>
+                            </div>
+                            <div class="input-group">
+                                <label for="como-conocio">¿Cómo nos conociste?</label>
+                                <select id="como-conocio">
+                                    <option value="">Seleccioná</option>
+                                    <option value="redes">Redes sociales</option>
+                                    <option value="recomendacion">Recomendación</option>
+                                    <option value="pasaba">Pasaba por acá</option>
+                                    <option value="publicidad">Publicidad</option>
+                                    <option value="otro">Otro</option>
+                                </select>
+                            </div>
+                            <div class="input-group">
+                                <label for="cuando-comprar">¿Cuándo pensás comprar?</label>
+                                <select id="cuando-comprar">
+                                    <option value="">Seleccioná</option>
+                                    <option value="este-mes">Este mes</option>
+                                    <option value="3-meses">En 3 meses</option>
+                                    <option value="6-meses">En 6 meses</option>
+                                    <option value="mirando">Solo estoy mirando</option>
+                                </select>
+                            </div>
+                            <div class="input-group">
+                                <label for="primer-0km">¿Es tu primer 0km?</label>
+                                <select id="primer-0km">
+                                    <option value="">Seleccioná</option>
+                                    <option value="si">Sí</option>
+                                    <option value="no">No</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <p class="terms">
+                            Al participar aceptás los <a href="terminos.html" target="_blank" style="color: #c9a227;">Términos y Condiciones</a>.
+                            <br><strong>⚠️ Solo MAYORES DE 18 AÑOS. Una participación por DNI.</strong>
+                            <br><small>El premio se reclama presentando el DNI con el que participaste.</small>
+                        </p>
+
+                        <button type="submit" class="submit-btn" id="submit-btn">
+                            <span>🎰</span> ¡QUIERO PARTICIPAR!
+                        </button>
+                    </form>
+                </div>
+            </section>
+
+            <section id="ruleta-section" class="section ruleta-section">
+                <h2 class="ruleta-title">¡Hola <span id="nombre-display"></span>! Girá la ruleta</h2>
+                
+                <div class="ruleta-wrapper">
+                    <div class="indicador">▼</div>
+                    <div class="ruleta-spinner" id="ruleta-spinner">
+                        <canvas id="ruleta-canvas" class="ruleta-canvas" width="500" height="500"></canvas>
+                    </div>
+                </div>
+
+                <button id="girar-btn" class="girar-btn">
+                    <span>🎯</span> ¡GIRAR RULETA!
+                </button>
+                
+                <p id="girando-text" class="girando-text" style="display: none;">¡Girando...! 🎰</p>
+                <div id="tira-nuevo-msg" class="tira-nuevo-msg" style="display: none;">
+                    <p>🔄 ¡Tenés otra oportunidad!</p>
+                    <p>Preparate para girar de nuevo...</p>
+                </div>
+            </section>
+
+            <section id="resultado-section" class="section">
+                <div id="resultado-card" class="resultado-card normal">
+                    <div id="confetti-emoji" class="confetti-emoji">🎊</div>
+                    <div id="resultado-emoji" class="resultado-emoji"></div>
+                    <h2 id="resultado-titulo" class="resultado-titulo"></h2>
+                    <p id="resultado-subtitulo" class="resultado-subtitulo"></p>
+                    
+                    <div id="premio-container">
+                        <div id="premio-box" class="premio-box">
+                            <span id="premio-texto" class="premio-texto"></span>
+                        </div>
+                        
+                        <div class="reclamo-section">
+                            <p class="reclamo-titulo">Para reclamar tu premio:</p>
+                            <a id="telefono-link" href="" class="telefono-link"></a>
+                            <p id="codigo-reclamo" class="reclamo-info"></p>
+                            <a id="whatsapp-btn" href="" target="_blank" class="whatsapp-btn">
+                                <span>💬</span> Contactar por WhatsApp
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <p id="crm-status" class="crm-status" style="display: none;">
+                        <span class="spinner"></span>Registrando tu participación...
+                    </p>
+                    <p id="crm-success" class="crm-success" style="display: none;">
+                        ✅ ¡Registrado! Pronto te contactaremos.
+                    </p>
+                    
+                    <p id="resultado-info" class="resultado-info" style="display: none;"></p>
+                    
+                    <button id="nuevo-btn" class="nuevo-btn">Nuevo participante</button>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>© 2024 GoldPlan - Todos los derechos reservados</p>
+            <p style="margin-top: 8px;"><a href="terminos.html" style="color: rgba(255,255,255,0.8); font-size: 11px;">Términos y Condiciones</a></p>
+        </footer>
+    </div>
+
+    <script>
+        // ============================================
+        // CONFIGURACIÓN
+        // ============================================
+        const TELEFONO_RECLAMO = "+54 11 5754-7007";
+        const WHATSAPP_NUMBER = "5491157547007";
+        
+        const CRM_VW = "https://alluma-crm-backend-production.up.railway.app/api/webhooks/zapier";
+        const CRM_MULTIMARCA = "https://crm-multimarca-backend-production.up.railway.app/api/webhooks/lacomer";
+        
+        const MODELOS_POR_MARCA = {
+            volkswagen: [
+                { value: "tera-trend", label: "Tera Trend MSI MT" },
+                { value: "t-cross-trendline", label: "T-Cross Trendline 200 TSI AT" },
+                { value: "nivus-trendline", label: "Nivus Trendline 200 TSI AT" },
+                { value: "amarok-trendline", label: "Amarok Trendline TDI MT 4X2" },
+                { value: "taos-comfortline", label: "Taos Comfortline 250 TSI AT" },
+            ],
+            fiat: [
+                { value: "titano-endurance", label: "Titano Endurance MT 4X4" },
+                { value: "argo-drive", label: "Argo Drive 1.3 MT" },
+                { value: "cronos-drive", label: "Cronos Drive 1.3 MT5" },
+                { value: "fastback-turbo", label: "Fastback Turbo 270 AT6" },
+                { value: "mobi-trekking", label: "Mobi Trekking 1.0" },
+                { value: "toro-freedom", label: "Toro Freedom T270 AT6 4X2" },
+                { value: "pulse-drive", label: "Pulse Drive 1.3L MT" },
+                { value: "fiorino-endurance", label: "Fiorino Endurance 1.4L" },
+                { value: "strada-freedom", label: "Strada Freedom CD" },
+            ],
+            peugeot: [
+                { value: "208-allure-mt", label: "208 Allure MT" },
+                { value: "208-allure-at", label: "208 Allure AT" },
+                { value: "2008-active", label: "2008 Active" },
+                { value: "2008-allure", label: "2008 Allure T200" },
+                { value: "partner-confort", label: "Partner Confort 1.6 HDI" },
+                { value: "expert-l3", label: "Expert L3 HDI 120" },
+            ],
+            renault: [
+                { value: "kwid-iconic", label: "Kwid Iconic Bitono 1.0" },
+                { value: "kardian-evolution", label: "Kardian Evolution 156 MT" },
+                { value: "kardian-iconic", label: "Kardian Iconic 200 EDC" },
+                { value: "duster-intens", label: "Duster Intens 1.6 MT" },
+                { value: "kangoo-stepway", label: "Kangoo II Stepway 1.6" },
+                { value: "kangoo-express-2a", label: "Kangoo II Express 2A" },
+                { value: "kangoo-express-5a", label: "Kangoo II Express 5A" },
+                { value: "master", label: "Master 2.3 dCi 130" },
+                { value: "oroch-emotion", label: "Oroch Emotion 1.6" },
+                { value: "arkana-alpine", label: "Arkana Espirit Alpine" },
+            ]
+        };
+
+        const PREMIOS = [
+            // PROBABILIDADES CONFIGURADAS:
+            // - Estadía Bariloche: 1 en 100,000 (0.001%)
+            // - Seguí participando: 1 en 5 (20% total = ~6.67% cada uno)
+            // - Resto: parejo (~10% cada uno)
+            { id: 1, nombre: "ESTADÍA EN BARILOCHE", color: "#1a1a2e", probabilidad: 1, emoji: "🏔️", destacado: true },
+            { id: 2, nombre: "SUSCRIPCIÓN SIN CARGO", color: "#c23a3a", probabilidad: 10000, emoji: "📋", destacado: false },
+            { id: 3, nombre: "LLAVERO", color: "#d4a14a", probabilidad: 10000, emoji: "🔑", destacado: false },
+            { id: 4, nombre: "LAPICERA", color: "#3d8b6e", probabilidad: 10000, emoji: "✏️", destacado: false },
+            { id: 5, nombre: "SEGUÍ PARTICIPANDO", color: "#1a1a2e", probabilidad: 6666, emoji: "🎯", destacado: false },
+            { id: 6, nombre: "12 CUOTAS ¡BONIFICADAS!", color: "#3a7bc2", probabilidad: 10000, emoji: "💰", destacado: true },
+            { id: 7, nombre: "¡TIRA DE NUEVO!", color: "#8b5cf6", probabilidad: 10000, emoji: "🔄", destacado: false },
+            { id: 8, nombre: "SEGUÍ PARTICIPANDO", color: "#1a1a2e", probabilidad: 6667, emoji: "🎯", destacado: false },
+            { id: 9, nombre: "$1.000.000 DE DESCUENTO", color: "#2d2d2d", probabilidad: 10000, emoji: "🎉", destacado: true },
+            { id: 10, nombre: "GASTOS DE RETIRO ¡BONIFICADO!", color: "#e07b39", probabilidad: 10000, emoji: "🚗", destacado: true },
+            { id: 11, nombre: "SEGUÍ PARTICIPANDO", color: "#c23a3a", probabilidad: 6666, emoji: "🎯", destacado: false },
+            { id: 12, nombre: "LLAVERO", color: "#d4a14a", probabilidad: 10000, emoji: "🔑", destacado: false },
+        ];
+
+        let formData = {};
+        let girando = false;
+        let rotacionActual = 0;
+        let premioGanado = null;
+        let marcaSeleccionada = null;
+        let audioContext = null;
+
+        // ============================================
+        // SISTEMA DE STORAGE - UNA SOLA JUGADA POR DNI
+        // ============================================
+        
+        const storageAPI = {
+            async get(key) {
+                if (window.storage && typeof window.storage.get === 'function') {
+                    try {
+                        return await window.storage.get(key, true);
+                    } catch (e) {
+                        console.log('Storage API no disponible, usando localStorage');
+                    }
+                }
+                const value = localStorage.getItem(key);
+                return value ? { value } : null;
+            },
+            async set(key, value) {
+                if (window.storage && typeof window.storage.set === 'function') {
+                    try {
+                        return await window.storage.set(key, value, true);
+                    } catch (e) {
+                        console.log('Storage API no disponible, usando localStorage');
+                    }
+                }
+                localStorage.setItem(key, value);
+                return { value };
+            }
+        };
+
+        async function verificarDNI(dni) {
+            const dniLimpio = dni.replace(/\./g, '').trim();
+            try {
+                const result = await storageAPI.get(`ruleta_dni_${dniLimpio}`);
+                if (result && result.value) {
+                    return JSON.parse(result.value);
+                }
+                return null;
+            } catch (error) {
+                console.error('Error verificando DNI:', error);
+                return null;
+            }
+        }
+
+        async function guardarParticipacion(dni, datos) {
+            const dniLimpio = dni.replace(/\./g, '').trim();
+            try {
+                await storageAPI.set(`ruleta_dni_${dniLimpio}`, JSON.stringify(datos));
+                return true;
+            } catch (error) {
+                console.error('Error guardando participación:', error);
+                return false;
+            }
+        }
+
+        function mostrarModalYaJugo(datosAnteriores) {
+            const modal = document.getElementById('ya-jugaste-modal');
+            const premioContainer = document.getElementById('modal-premio-container');
+            const premioNombre = document.getElementById('modal-premio-nombre');
+            
+            if (datosAnteriores && datosAnteriores.premio) {
+                premioContainer.style.display = 'block';
+                premioNombre.textContent = datosAnteriores.premio;
+            } else {
+                premioContainer.style.display = 'none';
+            }
+            
+            modal.classList.add('active');
+        }
+
+        function cerrarModal() {
+            document.getElementById('ya-jugaste-modal').classList.remove('active');
+        }
+
+        function mostrarLoading(show) {
+            const overlay = document.getElementById('loading-overlay');
+            if (show) {
+                overlay.classList.add('active');
+            } else {
+                overlay.classList.remove('active');
+            }
+        }
+
+        // ============================================
+        // SISTEMA DE SONIDO
+        // ============================================
+        
+        function initAudio() {
+            if (!audioContext) {
+                audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            }
+            return audioContext;
+        }
+
+        function playWinSound() {
+            try {
+                const ctx = initAudio();
+                const now = ctx.currentTime;
+                const notes = [
+                    { freq: 523.25, start: 0, duration: 0.15 },
+                    { freq: 659.25, start: 0.15, duration: 0.15 },
+                    { freq: 783.99, start: 0.3, duration: 0.15 },
+                    { freq: 1046.50, start: 0.45, duration: 0.4 },
+                    { freq: 783.99, start: 0.55, duration: 0.15 },
+                    { freq: 1046.50, start: 0.7, duration: 0.5 },
+                ];
+                notes.forEach(note => {
+                    const oscillator = ctx.createOscillator();
+                    const gainNode = ctx.createGain();
+                    oscillator.connect(gainNode);
+                    gainNode.connect(ctx.destination);
+                    oscillator.frequency.value = note.freq;
+                    oscillator.type = 'sine';
+                    gainNode.gain.setValueAtTime(0, now + note.start);
+                    gainNode.gain.linearRampToValueAtTime(0.3, now + note.start + 0.05);
+                    gainNode.gain.linearRampToValueAtTime(0, now + note.start + note.duration);
+                    oscillator.start(now + note.start);
+                    oscillator.stop(now + note.start + note.duration + 0.1);
+                });
+                for (let i = 0; i < 5; i++) {
+                    const osc = ctx.createOscillator();
+                    const gain = ctx.createGain();
+                    osc.connect(gain);
+                    gain.connect(ctx.destination);
+                    osc.frequency.value = 2000 + Math.random() * 2000;
+                    osc.type = 'sine';
+                    const startTime = now + 0.8 + i * 0.1;
+                    gain.gain.setValueAtTime(0, startTime);
+                    gain.gain.linearRampToValueAtTime(0.1, startTime + 0.05);
+                    gain.gain.linearRampToValueAtTime(0, startTime + 0.2);
+                    osc.start(startTime);
+                    osc.stop(startTime + 0.3);
+                }
+            } catch (e) {
+                console.log('Audio no disponible');
+            }
+        }
+
+        function playBigWinSound() {
+            try {
+                const ctx = initAudio();
+                const now = ctx.currentTime;
+                const notes = [
+                    { freq: 261.63, start: 0, duration: 0.2 },
+                    { freq: 329.63, start: 0.1, duration: 0.2 },
+                    { freq: 392.00, start: 0.2, duration: 0.2 },
+                    { freq: 523.25, start: 0.3, duration: 0.3 },
+                    { freq: 659.25, start: 0.5, duration: 0.2 },
+                    { freq: 783.99, start: 0.6, duration: 0.2 },
+                    { freq: 1046.50, start: 0.7, duration: 0.6 },
+                    { freq: 987.77, start: 1.0, duration: 0.2 },
+                    { freq: 1046.50, start: 1.2, duration: 0.8 },
+                ];
+                notes.forEach(note => {
+                    const oscillator = ctx.createOscillator();
+                    const gainNode = ctx.createGain();
+                    oscillator.connect(gainNode);
+                    gainNode.connect(ctx.destination);
+                    oscillator.frequency.value = note.freq;
+                    oscillator.type = 'sine';
+                    gainNode.gain.setValueAtTime(0, now + note.start);
+                    gainNode.gain.linearRampToValueAtTime(0.4, now + note.start + 0.05);
+                    gainNode.gain.linearRampToValueAtTime(0, now + note.start + note.duration);
+                    oscillator.start(now + note.start);
+                    oscillator.stop(now + note.start + note.duration + 0.1);
+                });
+                for (let i = 0; i < 10; i++) {
+                    const osc = ctx.createOscillator();
+                    const gain = ctx.createGain();
+                    osc.connect(gain);
+                    gain.connect(ctx.destination);
+                    osc.frequency.value = 1500 + Math.random() * 3000;
+                    osc.type = 'sine';
+                    const startTime = now + 1.5 + i * 0.1;
+                    gain.gain.setValueAtTime(0, startTime);
+                    gain.gain.linearRampToValueAtTime(0.15, startTime + 0.05);
+                    gain.gain.linearRampToValueAtTime(0, startTime + 0.3);
+                    osc.start(startTime);
+                    osc.stop(startTime + 0.4);
+                }
+            } catch (e) {
+                console.log('Audio no disponible');
+            }
+        }
+
+        function playSpinSound() {
+            try {
+                const ctx = initAudio();
+                const now = ctx.currentTime;
+                for (let i = 0; i < 30; i++) {
+                    const osc = ctx.createOscillator();
+                    const gain = ctx.createGain();
+                    osc.connect(gain);
+                    gain.connect(ctx.destination);
+                    const baseFreq = 200 + (i * 10);
+                    osc.frequency.value = baseFreq;
+                    osc.type = 'square';
+                    const startTime = now + i * 0.15;
+                    gain.gain.setValueAtTime(0, startTime);
+                    gain.gain.linearRampToValueAtTime(0.05, startTime + 0.02);
+                    gain.gain.linearRampToValueAtTime(0, startTime + 0.1);
+                    osc.start(startTime);
+                    osc.stop(startTime + 0.15);
+                }
+            } catch (e) {
+                console.log('Audio no disponible');
+            }
+        }
+
+        function lanzarConfetti(esDestacado) {
+            if (typeof confetti === 'undefined') return;
+            if (esDestacado) {
+                const colors = ['#c9a227', '#d4b445', '#1a1a1a', '#ffffff'];
+                confetti({
+                    particleCount: 200,
+                    spread: 100,
+                    origin: { y: 0.6 },
+                    colors: colors
+                });
+                setTimeout(() => {
+                    confetti({
+                        particleCount: 150,
+                        spread: 100,
+                        origin: { y: 0.6 },
+                        colors: colors
+                    });
+                }, 500);
+                setTimeout(() => {
+                    confetti({
+                        particleCount: 100,
+                        spread: 120,
+                        origin: { y: 0.5 },
+                        colors: ['#c9a227', '#d4b445']
+                    });
+                }, 1200);
+            } else {
+                confetti({
+                    particleCount: 100,
+                    spread: 70,
+                    origin: { y: 0.6 },
+                    colors: ['#c9a227', '#1a1a1a', '#ffffff']
+                });
+                setTimeout(() => {
+                    confetti({
+                        particleCount: 50,
+                        angle: 60,
+                        spread: 50,
+                        origin: { x: 0 }
+                    });
+                    confetti({
+                        particleCount: 50,
+                        angle: 120,
+                        spread: 50,
+                        origin: { x: 1 }
+                    });
+                }, 300);
+            }
+        }
+
+        // ============================================
+        // ELEMENTOS DEL DOM
+        // ============================================
+
+        const formularioSection = document.getElementById('formulario-section');
+        const ruletaSection = document.getElementById('ruleta-section');
+        const resultadoSection = document.getElementById('resultado-section');
+        const form = document.getElementById('participar-form');
+        const nombreDisplay = document.getElementById('nombre-display');
+        const ruletaSpinner = document.getElementById('ruleta-spinner');
+        const canvas = document.getElementById('ruleta-canvas');
+        const ctx = canvas.getContext('2d');
+        const girarBtn = document.getElementById('girar-btn');
+        const girandoText = document.getElementById('girando-text');
+        const tiraNuevoMsg = document.getElementById('tira-nuevo-msg');
+        const marcaInput = document.getElementById('marca');
+        const modeloSelect = document.getElementById('modelo');
+        const marcaOptions = document.querySelectorAll('.marca-option');
+
+        marcaOptions.forEach(option => {
+            option.addEventListener('click', function() {
+                marcaOptions.forEach(opt => opt.classList.remove('selected'));
+                this.classList.add('selected');
+                marcaSeleccionada = this.dataset.marca;
+                marcaInput.value = marcaSeleccionada;
+                actualizarModelos(marcaSeleccionada);
+            });
+        });
+
+        function actualizarModelos(marca) {
+            modeloSelect.innerHTML = '';
+            if (marca && MODELOS_POR_MARCA[marca]) {
+                modeloSelect.disabled = false;
+                const defaultOption = document.createElement('option');
+                defaultOption.value = '';
+                defaultOption.textContent = 'Seleccioná un modelo';
+                modeloSelect.appendChild(defaultOption);
+                MODELOS_POR_MARCA[marca].forEach(modelo => {
+                    const option = document.createElement('option');
+                    option.value = modelo.value;
+                    option.textContent = modelo.label;
+                    modeloSelect.appendChild(option);
+                });
+            } else {
+                modeloSelect.disabled = true;
+                const defaultOption = document.createElement('option');
+                defaultOption.value = '';
+                defaultOption.textContent = 'Primero elegí una marca';
+                modeloSelect.appendChild(defaultOption);
+            }
+        }
+
+        function lightenColor(color, percent) {
+            const num = parseInt(color.replace('#', ''), 16);
+            const amt = Math.round(2.55 * percent);
+            const R = (num >> 16) + amt;
+            const G = (num >> 8 & 0x00FF) + amt;
+            const B = (num & 0x0000FF) + amt;
+            return '#' + (0x1000000 + (R < 255 ? R < 1 ? 0 : R : 255) * 0x10000 + (G < 255 ? G < 1 ? 0 : G : 255) * 0x100 + (B < 255 ? B < 1 ? 0 : B : 255)).toString(16).slice(1);
+        }
+
+        function mostrarSeccion(seccion) {
+            formularioSection.classList.remove('active');
+            ruletaSection.classList.remove('active');
+            resultadoSection.classList.remove('active');
+            seccion.classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function seleccionarPremio() {
+            const total = PREMIOS.reduce((sum, p) => sum + p.probabilidad, 0);
+            let random = Math.random() * total;
+            for (let i = 0; i < PREMIOS.length; i++) {
+                random -= PREMIOS[i].probabilidad;
+                if (random <= 0) return { premio: PREMIOS[i], indice: i };
+            }
+            return { premio: PREMIOS[0], indice: 0 };
+        }
+
+        function dibujarRuleta() {
+            const size = Math.min(canvas.width, canvas.height);
+            const centerX = size / 2;
+            const centerY = size / 2;
+            const radius = (size / 2) - 20;
+            
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.shadowColor = 'rgba(0, 0, 0, 0.4)';
+            ctx.shadowBlur = 25;
+            ctx.shadowOffsetY = 8;
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, radius + 14, 0, 2 * Math.PI);
+            const borderGradient = ctx.createLinearGradient(0, 0, size, size);
+            borderGradient.addColorStop(0, '#c9a227');
+            borderGradient.addColorStop(0.5, '#d4b445');
+            borderGradient.addColorStop(1, '#a68619');
+            ctx.fillStyle = borderGradient;
+            ctx.fill();
+            ctx.shadowColor = 'transparent';
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, radius + 7, 0, 2 * Math.PI);
+            ctx.fillStyle = '#1a1a1a';
+            ctx.fill();
+            const numPremios = PREMIOS.length;
+            const anguloPorPremio = (2 * Math.PI) / numPremios;
+            
+            // Calcular tamaño de fuente basado en el tamaño del canvas
+            const fontSize = Math.max(8, Math.floor(size / 50));
+            
+            PREMIOS.forEach((premio, i) => {
+                const anguloInicio = i * anguloPorPremio - Math.PI / 2;
+                const anguloFin = anguloInicio + anguloPorPremio;
+                ctx.beginPath();
+                ctx.moveTo(centerX, centerY);
+                ctx.arc(centerX, centerY, radius, anguloInicio, anguloFin);
+                ctx.closePath();
+                const gradient = ctx.createRadialGradient(centerX, centerY, 0, centerX, centerY, radius);
+                gradient.addColorStop(0, lightenColor(premio.color, 30));
+                gradient.addColorStop(1, premio.color);
+                ctx.fillStyle = gradient;
+                ctx.fill();
+                ctx.strokeStyle = 'rgba(255,255,255,0.3)';
+                ctx.lineWidth = 2;
+                ctx.stroke();
+                ctx.save();
+                ctx.translate(centerX, centerY);
+                ctx.rotate(anguloInicio + anguloPorPremio / 2);
+                ctx.textAlign = 'right';
+                ctx.fillStyle = '#ffffff';
+                ctx.font = `bold ${fontSize}px Montserrat, sans-serif`;
+                ctx.shadowColor = 'rgba(0,0,0,0.5)';
+                ctx.shadowBlur = 3;
+                const palabras = premio.nombre.split(' ');
+                const lineas = [];
+                let lineaActual = '';
+                palabras.forEach(palabra => {
+                    if ((lineaActual + ' ' + palabra).length > 12) {
+                        lineas.push(lineaActual.trim());
+                        lineaActual = palabra;
+                    } else {
+                        lineaActual += ' ' + palabra;
+                    }
+                });
+                lineas.push(lineaActual.trim());
+                const alturaLinea = fontSize + 3;
+                const offsetY = -((lineas.length - 1) * alturaLinea) / 2;
+                lineas.forEach((linea, idx) => {
+                    ctx.fillText(linea, radius - 20, offsetY + idx * alturaLinea + 4);
+                });
+                ctx.restore();
+            });
+            for (let i = 0; i < numPremios; i++) {
+                const angulo = i * anguloPorPremio - Math.PI / 2;
+                const x = centerX + (radius + 10) * Math.cos(angulo);
+                const y = centerY + (radius + 10) * Math.sin(angulo);
+                ctx.beginPath();
+                ctx.arc(x, y, 4, 0, 2 * Math.PI);
+                ctx.fillStyle = '#c9a227';
+                ctx.fill();
+            }
+            const centroSize = Math.floor(size / 11);
+            const centroGradient = ctx.createRadialGradient(centerX - 8, centerY - 8, 0, centerX, centerY, centroSize);
+            centroGradient.addColorStop(0, '#ffffff');
+            centroGradient.addColorStop(1, '#e8e8e8');
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, centroSize, 0, 2 * Math.PI);
+            ctx.fillStyle = centroGradient;
+            ctx.shadowColor = 'rgba(0,0,0,0.3)';
+            ctx.shadowBlur = 8;
+            ctx.fill();
+            ctx.shadowColor = 'transparent';
+            ctx.font = `bold ${Math.floor(fontSize * 0.9)}px Montserrat, sans-serif`;
+            ctx.fillStyle = '#666';
+            ctx.textAlign = 'center';
+            ctx.fillText('GOLD', centerX, centerY - Math.floor(fontSize * 0.8));
+            ctx.font = `bold ${Math.floor(fontSize * 1.8)}px Montserrat, sans-serif`;
+            ctx.fillStyle = '#1a1a1a';
+            ctx.fillText('Plan', centerX, centerY + Math.floor(fontSize * 1.2));
+        }
+
+        function validarFormulario() {
+            let valido = true;
+            ['nombre', 'apellido', 'email', 'telefono', 'dni'].forEach(campo => {
+                const el = document.getElementById(campo);
+                if (el) {
+                    el.classList.remove('error');
+                    const err = document.getElementById(campo + '-error');
+                    if (err) err.textContent = '';
+                }
+            });
+            document.getElementById('marca-error').textContent = '';
+            document.getElementById('modelo-error').textContent = '';
+            modeloSelect.classList.remove('error');
+            const nombre = document.getElementById('nombre').value.trim();
+            if (!nombre) { document.getElementById('nombre').classList.add('error'); document.getElementById('nombre-error').textContent = 'Ingresá tu nombre'; valido = false; }
+            const apellido = document.getElementById('apellido').value.trim();
+            if (!apellido) { document.getElementById('apellido').classList.add('error'); document.getElementById('apellido-error').textContent = 'Ingresá tu apellido'; valido = false; }
+            const email = document.getElementById('email').value.trim();
+            if (!email) { document.getElementById('email').classList.add('error'); document.getElementById('email-error').textContent = 'Ingresá tu email'; valido = false; }
+            else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { document.getElementById('email').classList.add('error'); document.getElementById('email-error').textContent = 'Email inválido'; valido = false; }
+            const telefono = document.getElementById('telefono').value.trim();
+            if (!telefono) { document.getElementById('telefono').classList.add('error'); document.getElementById('telefono-error').textContent = 'Ingresá tu teléfono'; valido = false; }
+            else if (!/^[\d\s\-+()]{8,}$/.test(telefono)) { document.getElementById('telefono').classList.add('error'); document.getElementById('telefono-error').textContent = 'Teléfono inválido'; valido = false; }
+            const dni = document.getElementById('dni').value.trim().replace(/\./g, '');
+            if (!dni) { document.getElementById('dni').classList.add('error'); document.getElementById('dni-error').textContent = 'Ingresá tu DNI'; valido = false; }
+            else if (!/^\d{7,8}$/.test(dni)) { document.getElementById('dni').classList.add('error'); document.getElementById('dni-error').textContent = 'DNI inválido'; valido = false; }
+            if (!marcaSeleccionada) { document.getElementById('marca-error').textContent = 'Seleccioná una marca'; valido = false; }
+            const modelo = modeloSelect.value;
+            if (!modelo) { modeloSelect.classList.add('error'); document.getElementById('modelo-error').textContent = 'Seleccioná un modelo'; valido = false; }
+            if (valido) {
+                formData = {
+                    nombre, apellido, email, telefono,
+                    dni: document.getElementById('dni').value.trim(),
+                    marca: marcaSeleccionada, modelo,
+                    modeloNombre: modeloSelect.options[modeloSelect.selectedIndex].text,
+                    tieneAuto: document.getElementById('tiene-auto').value,
+                    comoConocio: document.getElementById('como-conocio').value,
+                    cuandoComprar: document.getElementById('cuando-comprar').value,
+                    primer0km: document.getElementById('primer-0km').value
+                };
+            }
+            return valido;
+        }
+
+        async function enviarAlCRM(premio) {
+            document.getElementById('crm-status').style.display = 'block';
+            const crmUrl = CRM_MULTIMARCA;
+            const codigoPremio = `GOLD-${formData.dni.slice(-4)}`;
+            let notas = `🎰 RULETA DIGITAL GOLDPLAN\n` +
+                        `━━━━━━━━━━━━━━━━━━━━━━━━\n` +
+                        `🎫 CÓDIGO: ${codigoPremio}\n` +
+                        `🏆 Premio: ${premio.nombre}\n` +
+                        `━━━━━━━━━━━━━━━━━━━━━━━━\n` +
+                        `🚗 Marca: ${formData.marca.toUpperCase()}\n` +
+                        `📋 Modelo: ${formData.modeloNombre}\n` +
+                        `🪪 DNI: ${formData.dni}`;
+            if (formData.tieneAuto) notas += `\n🚙 ¿Tiene auto?: ${formData.tieneAuto}`;
+            if (formData.comoConocio) notas += `\n📣 Cómo nos conoció: ${formData.comoConocio}`;
+            if (formData.cuandoComprar) notas += `\n📅 Cuándo compra: ${formData.cuandoComprar}`;
+            if (formData.primer0km) notas += `\n✨ Primer 0km: ${formData.primer0km}`;
+            notas += `\n━━━━━━━━━━━━━━━━━━━━━━━━\n⚠️ Verificar DNI al reclamar`;
+            
+            const leadData = {
+                nombre: `${formData.nombre} ${formData.apellido}`,
+                telefono: formData.telefono,
+                email: formData.email,
+                dni: formData.dni,
+                modelo: formData.modeloNombre,
+                marca: formData.marca,
+                fuente: 'ruleta_digital',
+                notas: notas,
+                premio: premio.nombre,
+                codigoPremio: codigoPremio,
+                fecha: new Date().toISOString()
+            };
+            try {
+                const response = await fetch(crmUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(leadData)
+                });
+                console.log("Lead enviado a CRM Multimarca");
+                document.getElementById('crm-status').style.display = 'none';
+                document.getElementById('crm-success').style.display = 'block';
+            } catch (error) {
+                console.error('Error CRM:', error);
+                const backup = JSON.parse(localStorage.getItem('leads_backup') || '[]');
+                backup.push({...leadData, crmDestino: crmUrl});
+                localStorage.setItem('leads_backup', JSON.stringify(backup));
+                document.getElementById('crm-status').style.display = 'none';
+                document.getElementById('crm-success').style.display = 'block';
+            }
+        }
+
+        function mostrarResultado(premio) {
+            const card = document.getElementById('resultado-card');
+            const emoji = document.getElementById('resultado-emoji');
+            const titulo = document.getElementById('resultado-titulo');
+            const subtitulo = document.getElementById('resultado-subtitulo');
+            const premioContainer = document.getElementById('premio-container');
+            const premioBox = document.getElementById('premio-box');
+            const premioTexto = document.getElementById('premio-texto');
+            const confettiEmoji = document.getElementById('confetti-emoji');
+            const resultadoInfo = document.getElementById('resultado-info');
+            
+            document.getElementById('crm-status').style.display = 'none';
+            document.getElementById('crm-success').style.display = 'none';
+            resultadoInfo.style.display = 'none';
+            
+            if (premio.nombre === "SEGUÍ PARTICIPANDO") {
+                card.className = 'resultado-card normal';
+                emoji.textContent = '😊';
+                titulo.textContent = '¡Gracias por participar!';
+                subtitulo.textContent = 'Esta vez no tuviste suerte, pero ya quedaste registrado.';
+                premioContainer.style.display = 'none';
+                confettiEmoji.style.display = 'none';
+                resultadoInfo.textContent = '¡Te esperamos en nuestros locales!';
+                resultadoInfo.style.display = 'block';
+                enviarAlCRM(premio);
+            } else {
+                card.className = premio.destacado ? 'resultado-card destacado' : 'resultado-card normal';
+                confettiEmoji.style.display = 'block';
+                emoji.textContent = premio.emoji;
+                titulo.textContent = `¡FELICITACIONES ${formData.nombre.toUpperCase()}!`;
+                subtitulo.textContent = 'Ganaste:';
+                premioContainer.style.display = 'block';
+                premioBox.style.backgroundColor = premio.color;
+                premioTexto.textContent = premio.nombre;
+                
+                document.getElementById('telefono-link').href = `tel:${TELEFONO_RECLAMO.replace(/\s/g, '')}`;
+                document.getElementById('telefono-link').textContent = `📞 ${TELEFONO_RECLAMO}`;
+                document.getElementById('codigo-reclamo').innerHTML = `Mencioná el código: <strong>GOLD-${formData.dni.slice(-4)}</strong>`;
+                document.getElementById('whatsapp-btn').href = `https://wa.me/${WHATSAPP_NUMBER}?text=Hola! Gané en la ruleta: ${premio.nombre}. Código: GOLD-${formData.dni.slice(-4)}. Me interesa ${formData.marca} ${formData.modeloNombre}`;
+                
+                setTimeout(() => {
+                    lanzarConfetti(premio.destacado);
+                    if (premio.destacado) {
+                        playBigWinSound();
+                    } else {
+                        playWinSound();
+                    }
+                }, 100);
+                
+                enviarAlCRM(premio);
+            }
+            
+            guardarParticipacion(formData.dni, {
+                premio: premio.nombre,
+                fecha: new Date().toISOString(),
+                nombre: formData.nombre,
+                apellido: formData.apellido
+            });
+            
+            mostrarSeccion(resultadoSection);
+        }
+
+        function girarRuleta() {
+            if (girando) return;
+            
+            initAudio();
+            
+            girando = true;
+            girarBtn.style.display = 'none';
+            girandoText.style.display = 'block';
+            tiraNuevoMsg.style.display = 'none';
+            
+            playSpinSound();
+            
+            const { premio, indice } = seleccionarPremio();
+            premioGanado = premio;
+            const anguloPorPremio = 360 / PREMIOS.length;
+            const anguloBase = 360 - (indice * anguloPorPremio) - (anguloPorPremio / 2);
+            const vueltasExtra = 5 + Math.floor(Math.random() * 3);
+            const rotacionFinal = rotacionActual + vueltasExtra * 360 + anguloBase + (Math.random() * 20 - 10);
+            ruletaSpinner.style.transform = `rotate(${rotacionFinal}deg)`;
+            rotacionActual = rotacionFinal;
+            
+            setTimeout(() => {
+                girando = false;
+                girandoText.style.display = 'none';
+                if (premio.nombre === "¡TIRA DE NUEVO!") {
+                    tiraNuevoMsg.style.display = 'block';
+                    if (typeof confetti !== 'undefined') {
+                        confetti({ particleCount: 30, spread: 50, origin: { y: 0.7 } });
+                    }
+                    setTimeout(() => {
+                        tiraNuevoMsg.style.display = 'none';
+                        girarBtn.style.display = 'inline-flex';
+                    }, 2500);
+                } else {
+                    setTimeout(() => mostrarResultado(premio), 1000);
+                }
+            }, 5000);
+        }
+
+        function reiniciar() {
+            formData = {};
+            premioGanado = null;
+            rotacionActual = 0;
+            marcaSeleccionada = null;
+            form.reset();
+            ['nombre', 'apellido', 'email', 'telefono', 'dni'].forEach(campo => {
+                const el = document.getElementById(campo);
+                if (el) { el.classList.remove('error'); const err = document.getElementById(campo + '-error'); if (err) err.textContent = ''; }
+            });
+            marcaOptions.forEach(opt => opt.classList.remove('selected'));
+            marcaInput.value = '';
+            document.getElementById('marca-error').textContent = '';
+            modeloSelect.innerHTML = '<option value="">Primero elegí una marca</option>';
+            modeloSelect.disabled = true;
+            modeloSelect.classList.remove('error');
+            document.getElementById('modelo-error').textContent = '';
+            ruletaSpinner.style.transition = 'none';
+            ruletaSpinner.style.transform = 'rotate(0deg)';
+            setTimeout(() => { ruletaSpinner.style.transition = 'transform 5s cubic-bezier(0.17, 0.67, 0.12, 0.99)'; }, 100);
+            girarBtn.style.display = 'inline-flex';
+            girandoText.style.display = 'none';
+            tiraNuevoMsg.style.display = 'none';
+            mostrarSeccion(formularioSection);
+        }
+
+        // ============================================
+        // EVENT LISTENERS
+        // ============================================
+
+        form.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            if (!validarFormulario()) return;
+            
+            mostrarLoading(true);
+            document.getElementById('submit-btn').disabled = true;
+            
+            const dniLimpio = formData.dni.replace(/\./g, '').trim();
+            const participacionAnterior = await verificarDNI(dniLimpio);
+            
+            mostrarLoading(false);
+            document.getElementById('submit-btn').disabled = false;
+            
+            if (participacionAnterior) {
+                mostrarModalYaJugo(participacionAnterior);
+                return;
+            }
+            
+            nombreDisplay.textContent = formData.nombre;
+            mostrarSeccion(ruletaSection);
+            dibujarRuleta();
+        });
+
+        girarBtn.addEventListener('click', girarRuleta);
+        document.getElementById('nuevo-btn').addEventListener('click', reiniciar);
+        
+        // Redibujar ruleta cuando cambia el tamaño
+        window.addEventListener('resize', dibujarRuleta);
+        
+        // Dibujar ruleta al cargar
+        dibujarRuleta();
+    </script>
+</body>
+</html>

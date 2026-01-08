@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Términos y Condiciones - GoldPlan Ruleta</title>
+    
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-11397261248"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'AW-11397261248');
+    </script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --color-primary: #1a1a1a;
+            --color-gold: #c9a227;
+            --color-gold-dark: #a68619;
+            --color-white: #ffffff;
+            --color-cream: #faf8f5;
+            --color-gray-200: #e5e5e5;
+            --color-gray-600: #666666;
+            --color-gray-800: #333333;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'DM Sans', -apple-system, sans-serif;
+            color: var(--color-gray-800);
+            line-height: 1.7;
+            background: var(--color-cream);
+        }
+
+        .header {
+            background: var(--color-primary);
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .header-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .logo-img {
+            height: 45px;
+            width: auto;
+        }
+
+        .back-link {
+            color: var(--color-gold);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: opacity 0.3s ease;
+        }
+
+        .back-link:hover {
+            opacity: 0.8;
+        }
+
+        .content {
+            padding: 60px 0;
+        }
+
+        .content-card {
+            background: var(--color-white);
+            border-radius: 24px;
+            padding: 50px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+        }
+
+        h1 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--color-primary);
+            margin-bottom: 10px;
+        }
+
+        .last-updated {
+            color: var(--color-gray-600);
+            font-size: 14px;
+            margin-bottom: 40px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid var(--color-gray-200);
+        }
+
+        h2 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--color-primary);
+            margin-top: 40px;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--color-gold);
+            display: inline-block;
+        }
+
+        h3 {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--color-primary);
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+
+        p {
+            margin-bottom: 16px;
+            color: var(--color-gray-800);
+        }
+
+        ul, ol {
+            margin-bottom: 20px;
+            padding-left: 24px;
+        }
+
+        li {
+            margin-bottom: 10px;
+            color: var(--color-gray-800);
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(201,162,39,0.1) 0%, rgba(201,162,39,0.05) 100%);
+            border-left: 4px solid var(--color-gold);
+            padding: 20px 24px;
+            border-radius: 0 12px 12px 0;
+            margin: 24px 0;
+        }
+
+        .highlight-box p {
+            margin-bottom: 0;
+            font-weight: 500;
+        }
+
+        .warning-box {
+            background: #fff5f5;
+            border-left: 4px solid #e53935;
+            padding: 20px 24px;
+            border-radius: 0 12px 12px 0;
+            margin: 24px 0;
+        }
+
+        .warning-box p {
+            margin-bottom: 0;
+            color: #c62828;
+            font-weight: 500;
+        }
+
+        .toc {
+            background: var(--color-cream);
+            padding: 24px;
+            border-radius: 12px;
+            margin-bottom: 40px;
+        }
+
+        .toc h3 {
+            margin-top: 0;
+            margin-bottom: 16px;
+            font-size: 16px;
+        }
+
+        .toc ul {
+            list-style: none;
+            padding-left: 0;
+            margin-bottom: 0;
+        }
+
+        .toc li {
+            margin-bottom: 8px;
+        }
+
+        .toc a {
+            color: var(--color-gold-dark);
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s ease;
+        }
+
+        .toc a:hover {
+            color: var(--color-primary);
+        }
+
+        .footer {
+            text-align: center;
+            padding: 30px 20px;
+            background: var(--color-cream);
+            border-top: 1px solid var(--color-gray-200);
+        }
+
+        .footer p {
+            font-size: 14px;
+            color: var(--color-gray-600);
+            margin-bottom: 0;
+        }
+
+        @media (max-width: 768px) {
+            .content-card {
+                padding: 30px 24px;
+            }
+
+            h1 {
+                font-size: 28px;
+            }
+
+            h2 {
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="header-inner">
+                <a href="index.html" class="logo">
+                    <img src="logo-goldplan.png" alt="GoldPlan" class="logo-img">
+                </a>
+                <a href="index.html" class="back-link">
+                    ← Volver al inicio
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="content">
+        <div class="container">
+            <div class="content-card">
+                <h1>Términos y Condiciones</h1>
+                <p class="last-updated">Última actualización: Enero 2025</p>
+
+                <div class="toc">
+                    <h3>📋 Contenido</h3>
+                    <ul>
+                        <li><a href="#participacion">1. Requisitos de Participación</a></li>
+                        <li><a href="#mecanica">2. Mecánica del Juego</a></li>
+                        <li><a href="#premios">3. Premios y Reclamo</a></li>
+                        <li><a href="#restricciones">4. Restricciones</a></li>
+                        <li><a href="#datos">5. Uso de Datos Personales</a></li>
+                        <li><a href="#privacidad">6. Política de Privacidad</a></li>
+                        <li><a href="#responsabilidad">7. Limitación de Responsabilidad</a></li>
+                        <li><a href="#modificaciones">8. Modificaciones</a></li>
+                        <li><a href="#contacto">9. Contacto</a></li>
+                    </ul>
+                </div>
+
+                <p>Bienvenido a la promoción "Ruleta GoldPlan". Al participar en esta promoción, aceptás los siguientes términos y condiciones. Te recomendamos leerlos detenidamente antes de participar.</p>
+
+                <h2 id="participacion">1. Requisitos de Participación</h2>
+                
+                <div class="warning-box">
+                    <p>⚠️ IMPORTANTE: Solo pueden participar personas MAYORES DE 18 AÑOS.</p>
+                </div>
+
+                <p>Para participar en la promoción "Ruleta GoldPlan", debés cumplir con los siguientes requisitos:</p>
+                
+                <ul>
+                    <li><strong>Edad mínima:</strong> Ser mayor de 18 años al momento de participar.</li>
+                    <li><strong>Residencia:</strong> Ser residente de la República Argentina.</li>
+                    <li><strong>DNI válido:</strong> Contar con un Documento Nacional de Identidad argentino vigente.</li>
+                    <li><strong>Datos verídicos:</strong> Proporcionar información personal verdadera y verificable.</li>
+                </ul>
+
+                <p>La participación es personal e intransferible. No se aceptan participaciones en nombre de terceros.</p>
+
+                <h2 id="mecanica">2. Mecánica del Juego</h2>
+                
+                <h3>2.1 Proceso de Participación</h3>
+                <ol>
+                    <li>Completar el formulario de registro con datos personales válidos.</li>
+                    <li>Seleccionar la marca y modelo de vehículo de interés.</li>
+                    <li>Hacer clic en "Girar Ruleta" para obtener un premio al azar.</li>
+                    <li>El sistema registrará automáticamente el resultado y generará un código único.</li>
+                </ol>
+
+                <h3>2.2 Límite de Participación</h3>
+                
+                <div class="highlight-box">
+                    <p>🎯 Cada persona puede participar <strong>UNA ÚNICA VEZ</strong> por número de DNI. El sistema verificará automáticamente si el DNI ya fue utilizado.</p>
+                </div>
+
+                <p>No se permiten participaciones múltiples bajo ninguna circunstancia. Los intentos de participar más de una vez con el mismo DNI serán rechazados por el sistema.</p>
+
+                <h2 id="premios">3. Premios y Reclamo</h2>
+
+                <h3>3.1 Premios Disponibles</h3>
+                <p>Los premios disponibles en la ruleta incluyen, pero no se limitan a:</p>
+                <ul>
+                    <li>Estadía en Bariloche (3 noches para 2 personas)</li>
+                    <li>12 Cuotas Bonificadas en la compra de un 0km</li>
+                    <li>$1.000.000 de descuento en unidades 0km</li>
+                    <li>Gastos de retiro bonificados</li>
+                    <li>Suscripción sin cargo (6 meses)</li>
+                    <li>Merchandising exclusivo (llaveros, lapiceras)</li>
+                </ul>
+
+                <p>Los premios están sujetos a disponibilidad y pueden variar sin previo aviso.</p>
+
+                <h3>3.2 Reclamo de Premios</h3>
+                
+                <div class="highlight-box">
+                    <p>🪪 Para reclamar cualquier premio, el ganador deberá presentar el <strong>DNI ORIGINAL</strong> con el cual participó en la promoción. No se entregarán premios sin la verificación de identidad correspondiente.</p>
+                </div>
+
+                <p>El proceso de reclamo es el siguiente:</p>
+                <ol>
+                    <li>Contactar a GoldPlan por los canales oficiales (WhatsApp o teléfono).</li>
+                    <li>Proporcionar el código único generado al momento de ganar.</li>
+                    <li>Coordinar fecha y lugar para el retiro del premio.</li>
+                    <li><strong>Presentar DNI original</strong> (el mismo número con el que se participó) al momento del retiro.</li>
+                    <li>Firmar el acta de entrega del premio.</li>
+                </ol>
+
+                <h3>3.3 Plazos</h3>
+                <ul>
+                    <li>Los premios deben ser reclamados dentro de los <strong>30 días corridos</strong> desde la fecha de participación.</li>
+                    <li>Pasado este plazo, el premio se considerará caduco y no podrá ser reclamado.</li>
+                    <li>Los premios no son canjeables por dinero en efectivo.</li>
+                </ul>
+
+                <h2 id="restricciones">4. Restricciones</h2>
+                
+                <p>Queda expresamente prohibido:</p>
+                <ul>
+                    <li>Participar siendo menor de 18 años.</li>
+                    <li>Utilizar datos falsos o de terceros.</li>
+                    <li>Intentar participar más de una vez.</li>
+                    <li>Manipular o intentar manipular el sistema de la ruleta.</li>
+                    <li>Transferir o vender premios a terceros.</li>
+                    <li>Reclamar premios con un DNI diferente al utilizado en la participación.</li>
+                </ul>
+
+                <p>El incumplimiento de cualquiera de estas restricciones resultará en la descalificación inmediata y la anulación de cualquier premio obtenido.</p>
+
+                <h2 id="datos">5. Uso de Datos Personales</h2>
+                
+                <p>Al participar, autorizás a GoldPlan a:</p>
+                <ul>
+                    <li>Almacenar y procesar tus datos personales para la gestión de la promoción.</li>
+                    <li>Contactarte por email, teléfono o WhatsApp en relación a la promoción y/o servicios relacionados.</li>
+                    <li>Verificar la autenticidad de la información proporcionada.</li>
+                </ul>
+
+                <p>Los datos recopilados incluyen: nombre, apellido, email, teléfono, DNI, y preferencias de vehículos.</p>
+
+                <h2 id="privacidad">6. Política de Privacidad</h2>
+                
+                <h3>6.1 Protección de Datos</h3>
+                <p>GoldPlan se compromete a proteger la privacidad de los participantes. Tus datos personales serán tratados de conformidad con la Ley de Protección de Datos Personales N° 25.326.</p>
+
+                <h3>6.2 Derechos del Usuario</h3>
+                <p>Como titular de los datos, tenés derecho a:</p>
+                <ul>
+                    <li>Acceder a tus datos personales.</li>
+                    <li>Solicitar la rectificación de datos incorrectos.</li>
+                    <li>Solicitar la eliminación de tus datos (salvo obligaciones legales).</li>
+                    <li>Oponerte al tratamiento de tus datos con fines de marketing.</li>
+                </ul>
+
+                <h3>6.3 Seguridad</h3>
+                <p>Implementamos medidas de seguridad técnicas y organizativas para proteger tus datos contra acceso no autorizado, pérdida o alteración.</p>
+
+                <h2 id="responsabilidad">7. Limitación de Responsabilidad</h2>
+                
+                <p>GoldPlan no será responsable por:</p>
+                <ul>
+                    <li>Fallas técnicas o de conectividad que impidan la participación.</li>
+                    <li>Información incorrecta proporcionada por el participante.</li>
+                    <li>Imposibilidad de contactar al ganador por datos erróneos.</li>
+                    <li>Uso indebido del código de premio por terceros.</li>
+                    <li>Daños indirectos derivados de la participación en la promoción.</li>
+                </ul>
+
+                <h2 id="modificaciones">8. Modificaciones</h2>
+                
+                <p>GoldPlan se reserva el derecho de:</p>
+                <ul>
+                    <li>Modificar estos términos y condiciones en cualquier momento.</li>
+                    <li>Suspender o cancelar la promoción por causas de fuerza mayor.</li>
+                    <li>Descalificar participantes que incumplan las reglas.</li>
+                    <li>Modificar los premios disponibles según disponibilidad.</li>
+                </ul>
+
+                <p>Cualquier modificación será comunicada a través de los canales oficiales de GoldPlan.</p>
+
+                <h2 id="contacto">9. Contacto</h2>
+                
+                <p>Para consultas relacionadas con la promoción, podés contactarnos a través de:</p>
+                <ul>
+                    <li><strong>WhatsApp:</strong> +54 11 5754-7007</li>
+                    <li><strong>Teléfono:</strong> +54 11 5754-7007</li>
+                </ul>
+
+                <div class="highlight-box">
+                    <p>Al hacer clic en "Participar" y completar el formulario de la ruleta, declarás haber leído, comprendido y aceptado estos Términos y Condiciones en su totalidad.</p>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>© 2024 GoldPlan - Todos los derechos reservados</p>
+        </div>
+    </footer>
+</body>
+</html>
