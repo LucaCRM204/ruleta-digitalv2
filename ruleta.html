@@ -380,21 +380,20 @@
         }
 
         .marcas-ruleta {
-            display: flex;
+            display: inline-flex;
             align-items: center;
             justify-content: center;
-            gap: clamp(15px, 4vw, 30px);
+            gap: clamp(15px, 4vw, 25px);
             margin-bottom: clamp(15px, 3vw, 25px);
-            padding: clamp(10px, 2vw, 15px) clamp(20px, 4vw, 40px);
+            padding: clamp(10px, 2vw, 15px) clamp(20px, 4vw, 35px);
             background: rgba(255,255,255,0.1);
             border-radius: 50px;
             backdrop-filter: blur(10px);
-            display: inline-flex;
         }
 
         .marcas-ruleta img {
-            width: clamp(35px, 8vw, 55px);
-            height: clamp(35px, 8vw, 55px);
+            width: clamp(40px, 10vw, 60px);
+            height: clamp(40px, 10vw, 60px);
             object-fit: contain;
             filter: brightness(0) invert(1);
             opacity: 0.9;
@@ -1066,7 +1065,7 @@
                 <div class="form-card">
                     <!-- Premio ganado -->
                     <div id="premio-ganado-container" class="premio-ganado-container">
-                        <p class="premio-ganado-label">🎉 ¡Ganaste!</p>
+                        <p id="premio-ganado-label" class="premio-ganado-label">🎉 ¡Ganaste!</p>
                         <div id="premio-ganado-box" class="premio-ganado-box">
                             <span id="premio-ganado-emoji" class="premio-ganado-emoji"></span>
                             <span id="premio-ganado-texto" class="premio-ganado-texto"></span>
@@ -1306,18 +1305,22 @@
         };
 
         const PREMIOS = [
-            // PROBABILIDADES CONFIGURADAS (9 premios):
-            // - Estadía Bariloche: muy baja probabilidad
-            // - Resto: distribuidos equitativamente (~11% cada uno)
+            // PROBABILIDADES CONFIGURADAS (12 premios):
+            // - Estadía Bariloche: muy baja probabilidad (1 en 100,000)
+            // - Tira de nuevo: ~30% total (4 segmentos)
+            // - Resto: distribuidos (~10% cada uno)
             { id: 1, nombre: "ESTADÍA EN BARILOCHE", color: "#1a1a2e", probabilidad: 1, emoji: "🏔️", destacado: true },
-            { id: 2, nombre: "SUSCRIPCIÓN SIN CARGO", color: "#c23a3a", probabilidad: 11111, emoji: "📋", destacado: false },
-            { id: 3, nombre: "LLAVERO", color: "#d4a14a", probabilidad: 11111, emoji: "🔑", destacado: false },
-            { id: 4, nombre: "LAPICERA", color: "#3d8b6e", probabilidad: 11111, emoji: "✏️", destacado: false },
-            { id: 5, nombre: "12 CUOTAS ¡BONIFICADAS!", color: "#3a7bc2", probabilidad: 11111, emoji: "💰", destacado: true },
-            { id: 6, nombre: "¡TIRA DE NUEVO!", color: "#8b5cf6", probabilidad: 11111, emoji: "🔄", destacado: false },
-            { id: 7, nombre: "$1.000.000 DE DESCUENTO", color: "#2d2d2d", probabilidad: 11111, emoji: "🎉", destacado: true },
-            { id: 8, nombre: "GASTOS DE RETIRO ¡BONIFICADO!", color: "#e07b39", probabilidad: 11111, emoji: "🚗", destacado: true },
-            { id: 9, nombre: "LLAVERO", color: "#d4a14a", probabilidad: 11111, emoji: "🔑", destacado: false },
+            { id: 2, nombre: "SUSCRIPCIÓN SIN CARGO", color: "#c23a3a", probabilidad: 10000, emoji: "📋", destacado: false },
+            { id: 3, nombre: "LLAVERO", color: "#d4a14a", probabilidad: 10000, emoji: "🔑", destacado: false },
+            { id: 4, nombre: "LAPICERA", color: "#3d8b6e", probabilidad: 10000, emoji: "✏️", destacado: false },
+            { id: 5, nombre: "¡TIRA DE NUEVO!", color: "#8b5cf6", probabilidad: 7500, emoji: "🔄", destacado: false },
+            { id: 6, nombre: "12 CUOTAS ¡BONIFICADAS!", color: "#3a7bc2", probabilidad: 10000, emoji: "💰", destacado: true },
+            { id: 7, nombre: "¡TIRA DE NUEVO!", color: "#9333ea", probabilidad: 7500, emoji: "🔄", destacado: false },
+            { id: 8, nombre: "LLAVERO", color: "#d4a14a", probabilidad: 10000, emoji: "🔑", destacado: false },
+            { id: 9, nombre: "$1.000.000 DE DESCUENTO", color: "#2d2d2d", probabilidad: 10000, emoji: "🎉", destacado: true },
+            { id: 10, nombre: "GASTOS DE RETIRO ¡BONIFICADO!", color: "#e07b39", probabilidad: 10000, emoji: "🚗", destacado: true },
+            { id: 11, nombre: "¡TIRA DE NUEVO!", color: "#7c3aed", probabilidad: 7500, emoji: "🔄", destacado: false },
+            { id: 12, nombre: "LAPICERA", color: "#3d8b6e", probabilidad: 7499, emoji: "✏️", destacado: false },
         ];
 
         let formData = {};
@@ -1960,6 +1963,7 @@
                         playWinSound();
                     }
                     // Actualizar el premio en el formulario
+                    document.getElementById('premio-ganado-label').textContent = '🎉 ¡Ganaste!';
                     document.getElementById('premio-ganado-emoji').textContent = premio.emoji;
                     document.getElementById('premio-ganado-texto').textContent = premio.nombre;
                     document.getElementById('premio-ganado-box').style.backgroundColor = premio.color;
